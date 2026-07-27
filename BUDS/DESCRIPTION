@@ -1,0 +1,43 @@
+Package: BUDS
+Title: BUDS for Two-Stage Single-Arm Phase II Trials
+Version: 2.1.0
+Authors@R: c(
+    person("Rebecca", "Irlmeier", role = "aut",
+           email = "rirlmeier@miami.edu"),
+    person("Zhuoli", "Jin", role = c("aut", "cre"),
+           email = "zxj285@miami.edu")
+    )
+Description: Enumerate admissible two-stage designs for phase II clinical
+    trials under type-I error and power constraints. Includes classical
+    Simon Optimal, Minimax, and Balanced designs for binary endpoints,
+    restricted Kwak-Jung (r-KJ) designs for time-to-event endpoints with
+    restricted follow-up (Belin et al., 2017), and Benchmark-Uncertainty
+    Design Selection (BUDS) criteria. The core search engines are
+    implemented in C++ for high performance.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+Imports:
+    Rcpp (>= 1.0.0),
+    dplyr,
+    ggplot2,
+    tibble,
+    purrr,
+    scales
+Suggests:
+    shiny,
+    bslib,
+    DT,
+    plotly,
+    waiter,
+    gt,
+    flextable,
+    officer,
+    htmltools,
+    base64enc,
+    knitr,
+    rmarkdown,
+    testthat (>= 3.0.0)
+LinkingTo: Rcpp
+VignetteBuilder: knitr
+Config/roxygen2/version: 8.0.0

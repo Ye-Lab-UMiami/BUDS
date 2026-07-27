@@ -1,0 +1,10 @@
+.DS_Store
+.Rhistory
+.Rapp.history
+.RData
+.Ruserdata
+.Rproj.user/
+*.o
+*.so
+*.dll
+*.bak
