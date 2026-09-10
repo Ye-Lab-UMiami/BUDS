@@ -9,7 +9,7 @@ This package accompanies the manuscript **BUDS: Benchmark Uncertainty Design Sel
 - Binary endpoint designs based on Simon two-stage designs.
 - Time-to-event endpoint designs based on restricted Kwak-Jung designs with
   restricted follow-up.
-- Interval-null robust design selection using worst-regret and average-EN
+- Interval-null robust design selection using least-regret and average-EN
   criteria.
 - Operating-characteristic evaluation across single and interval benchmark
   settings.
@@ -71,7 +71,7 @@ bin_design <- binary_BUDS(
   p0U = 0.12,
   p1 = 0.25,
   n.ub = 150,
-  robust_objective = c("worst_regret", "avg_en")
+  robust_objective = c("least_regret", "avg_en")
 )
 
 bin_design
@@ -95,7 +95,7 @@ tte_design <- tte_BUDS(
   x0 = 1,
   rate = 15,
   n.ub = 150,
-  inr_objective = c("avg_en", "worst_regret")
+  inr_objective = c("avg_en", "least_regret")
 )
 
 tte_design
@@ -126,7 +126,7 @@ Hazard-rate inputs are also supported through `lambda0`, `lambda0L`,
 ```r
 export_design_html(
   design = tte_design,
-  design_name = "BUDS (Worst Regret)",
+  design_name = "BUDS (Least Regret)",
   file = "tte_report.html"
 )
 ```

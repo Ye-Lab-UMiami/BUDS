@@ -391,14 +391,14 @@ List tte_BUDS_search_cpp(
     std::vector<std::string> objectives;
     for (int i = 0; i < BUDS_objective.size(); ++i) {
         std::string obj = to_lower(Rcpp::as<std::string>(BUDS_objective[i]));
-        if (obj == "avg_en" || obj == "worst_regret" ||
-            obj == "avg_regret" || obj == "worst_en" || obj == "min_n") {
+        if (obj == "avg_en" || obj == "least_regret" ||
+            obj == "avg_regret" || obj == "least_en" || obj == "min_n") {
             bool seen = false;
             for (const auto& s : objectives) if (s == obj) { seen = true; break; }
             if (!seen) objectives.push_back(obj);
         }
     }
-    if (objectives.empty()) objectives = {"avg_en", "worst_regret"};
+    if (objectives.empty()) objectives = {"avg_en", "least_regret"};
 
     std::string regret_basis_s = to_lower(std::string(regret_basis));
     if (regret_basis_s != "en" && regret_basis_s != "n")
@@ -664,8 +664,8 @@ List tte_BUDS_search_cpp(
     }
 
     auto objective_score = [&](const std::string& obj, int idx) {
-        if      (obj == "worst_regret") return vwR_EN[idx];
-        else if (obj == "worst_en")     return vwEN[idx];
+        if      (obj == "least_regret") return vwR_EN[idx];
+        else if (obj == "least_en")     return vwEN[idx];
         else if (obj == "avg_en")       return vaEN[idx];
         else if (obj == "avg_regret")   return vaR_EN[idx];
         return (double)vN[idx];
@@ -730,8 +730,8 @@ List tte_BUDS_search_cpp(
         auto& c = candidates[ch];
         std::string label = "BUDS";
         if (obj == "avg_en") label = "BUDS (Average EN)";
-        else if (obj == "worst_en") label = "BUDS (Worst EN)";
-        else if (obj == "worst_regret") label = "BUDS (Worst Regret)";
+        else if (obj == "least_en") label = "BUDS (Least EN)";
+        else if (obj == "least_regret") label = "BUDS (Least Regret)";
         else if (obj == "avg_regret")   label = "BUDS (Average Regret)";
         else if (obj == "min_n") label = "BUDS (Min N)";
 
@@ -811,9 +811,9 @@ List tte_BUDS_search_cpp(
             Named("DA1") = oDA1, Named("DA2") = oDA2,
             Named("EN") = oen, Named("PET") = opet,
             Named("sup_alpha") = osup,
-            Named("worst_EN") = owEN,
+            Named("least_EN") = owEN,
             Named("avg_EN") = oaEN,
-            Named("worst_regret") = owR,
+            Named("least_regret") = owR,
             Named("avg_regret") = oaR
         ),
         Named("candidate_pool") = DataFrame::create(
@@ -825,11 +825,11 @@ List tte_BUDS_search_cpp(
             Named("EN_design") = cp_EN_design,
             Named("PET_design") = cp_PET_design,
             Named("sup_alpha") = cp_sup,
-            Named("worst_EN") = cp_wEN,
+            Named("least_EN") = cp_wEN,
             Named("avg_EN") = cp_aEN,
-            Named("worst_regret_EN") = cp_wR_EN,
+            Named("least_regret_EN") = cp_wR_EN,
             Named("avg_regret_EN") = cp_aR_EN,
-            Named("worst_regret_N") = cp_wR_N,
+            Named("least_regret_N") = cp_wR_N,
             Named("avg_regret_N") = cp_aR_N
         ),
         Named("local_benchmarks") = DataFrame::create(

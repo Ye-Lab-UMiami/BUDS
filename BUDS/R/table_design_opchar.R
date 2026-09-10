@@ -114,10 +114,10 @@ table_design_opchar <- function(design,
     defs <- c("Optimal" = "Optimal: Simon's (1989) design that minimizes expected sample size.",
               "Minimax" = "Minimax: Simon's (1989) design minimizes maximum sample size.",
               "Balanced" = "Balanced: Ye & Shyr (2007) design that balances stage sizes.",
-              "BUDS (Worst Regret)" = "BUDS (Worst Regret): minimizes worst-case regret.",
+              "BUDS (Least Regret)" = "BUDS (Least Regret): minimizes least-case regret.",
               "BUDS (Average EN)" = "BUDS (Average EN): minimizes average EN.",
               "BUDS (Average Regret)" = "BUDS (Average Regret): minimizes average regret.",
-              "BUDS (Worst EN)" = "BUDS (Worst EN): minimizes worst-case EN.",
+              "BUDS (Least EN)" = "BUDS (Least EN): minimizes least-case EN.",
               "BUDS (Min N)" = "BUDS (Min N): minimizes total sample size.")
   } else {
     classic_designs <- c("r-KJ")
@@ -154,10 +154,10 @@ table_design_opchar <- function(design,
                           inputs$S0, S0L_show, S0U_show, inputs$S1, inputs$x0)
     }
     defs <- c("r-KJ" = "r-KJ: restricted-Kwak and Jung (2017) design that minimizes expected sample size.",
-              "BUDS (Worst Regret)" = "BUDS (Worst Regret): minimizes worst-case regret.",
+              "BUDS (Least Regret)" = "BUDS (Lorst Regret): minimizes least-case regret.",
               "BUDS (Average EN)" = "BUDS (Average EN): minimizes average EN.",
               "BUDS (Average Regret)" = "BUDS (Average Regret): minimizes average regret.",
-              "BUDS (Worst EN)" = "BUDS (Worst EN): minimizes worst-case EN.",
+              "BUDS (Least EN)" = "BUDS (Least EN): minimizes least-case EN.",
               "BUDS (Min N)" = "BUDS (Min N): minimizes total sample size.")
   }
   keep_defs <- defs[names(defs) %in% present]

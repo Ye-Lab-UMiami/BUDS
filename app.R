@@ -130,8 +130,8 @@ augment_binary_single_point_results <- function(df, design) {
   } else {
     design$inputs$app_robust_objective
   }
-  BUDS_label <- if ("worst_regret" %in% objectives) {
-    "BUDS Worst Regret"
+  BUDS_label <- if ("least_regret" %in% objectives) {
+    "BUDS Least Regret"
   } else if ("avg_en" %in% objectives) {
     "BUDS Average EN"
   } else {
@@ -544,10 +544,10 @@ ui <- navbarPage(
         checkboxGroupInput(
           "binary_objective", NULL,
           choices = c(
-            "Worst Regret" = "worst_regret",
+            "Least Regret" = "least_regret",
             "Average EN" = "avg_en"
           ),
-          selected = c("worst_regret", "avg_en")
+          selected = c("least_regret", "avg_en")
         )
       )
     )
@@ -607,9 +607,9 @@ ui <- navbarPage(
           "tte_objective", NULL,
           choices = c(
             "Average EN" = "avg_en",
-            "Worst Regret" = "worst_regret"
+            "Least Regret" = "least_regret"
           ),
-          selected = c("avg_en", "worst_regret")
+          selected = c("avg_en", "least_regret")
         )
       )
     )
@@ -946,8 +946,8 @@ server <- function(input, output, session) {
       } else {
         d$inputs$app_robust_objective
       }
-      BUDS_label <- if ("worst_regret" %in% objectives) {
-        "BUDS Worst Regret"
+      BUDS_label <- if ("least_regret" %in% objectives) {
+        "BUDS Least Regret"
       } else if ("avg_en" %in% objectives) {
         "BUDS Average EN"
       } else {

@@ -109,8 +109,8 @@ struct TwoStageDesigns {
 };
 
 inline std::string robust_label_map(const std::string& obj) {
-    if (obj == "worst_regret") return "BUDS (Worst Regret)";
-    if (obj == "worst_en")     return "BUDS (Worst EN)";
+    if (obj == "least_regret") return "BUDS (Least Regret)";
+    if (obj == "least_en")     return "BUDS (Least EN)";
     if (obj == "avg_en")       return "BUDS (Average EN)";
     if (obj == "avg_regret")   return "BUDS (Average Regret)";
     if (obj == "min_N")        return "BUDS (Min N)";
@@ -136,9 +136,9 @@ inline TwoStageDesigns binary_BUDS_engine(
     auto t_start = std::chrono::high_resolution_clock::now();
 
     const std::vector<std::string> valid_objectives =
-        {"worst_regret", "worst_en", "avg_en", "avg_regret", "min_N"};
+        {"least_regret", "least_en", "avg_en", "avg_regret", "min_N"};
     if (robust_objective.empty()) {
-        robust_objective = {"worst_regret", "avg_en"};
+        robust_objective = {"least_regret", "avg_en"};
     } else {
         std::vector<std::string> filtered;
         for (auto& obj : valid_objectives)
@@ -364,8 +364,8 @@ inline TwoStageDesigns binary_BUDS_engine(
         for (auto& obj : robust_objective) {
             std::vector<double> sc(ncols);
             for (int j = 0; j < ncols; ++j) {
-                if      (obj=="worst_regret") sc[j]=wReg[j];
-                else if (obj=="worst_en")     sc[j]=wEN[j];
+                if      (obj=="least_regret") sc[j]=wReg[j];
+                else if (obj=="least_en")     sc[j]=wEN[j];
                 else if (obj=="avg_en")       sc[j]=aEN[j];
                 else if (obj=="avg_regret")   sc[j]=aReg[j];
                 else                          sc[j]=(double)Nv[j];

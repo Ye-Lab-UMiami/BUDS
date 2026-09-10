@@ -360,9 +360,9 @@
       S0_design = S0, s = S0, x0 = x0, rate = rate
     ),
     sup_alpha = max(alpha_grid, na.rm = TRUE),
-    worst_EN = max(en_grid, na.rm = TRUE),
+    least_EN = max(en_grid, na.rm = TRUE),
     avg_EN = mean(en_grid, na.rm = TRUE),
-    worst_regret = 0,
+    least_regret = 0,
     avg_regret = 0
   )
 }
@@ -402,7 +402,7 @@
 #'   \code{n_design_points}.
 #' @param nsim_eval Legacy compatibility argument retained for API stability.
 #' @param BUDS_objective BUDS objective(s) used to select winner(s). Publicly
-#'   supported defaults are \code{"avg_en"} and \code{"worst_regret"}.
+#'   supported defaults are \code{"avg_en"} and \code{"least_regret"}.
 #' @param verbose Print progress. Default FALSE.
 #' @param ... Additional arguments passed to the internal local r-KJ search and the
 #'   C++ search engine (\code{ceps}, \code{alphaeps}, \code{nbmaxiter}).
@@ -431,7 +431,7 @@ tte_BUDS <- function(S0L = NULL, S0U = NULL, S1 = NULL, x0, rate, S0 = NULL,
                     n.ub = 150L,
                     n_design_points = 21L, n_eval_grid = 21L,
                     nsim_eval = 5000L,
-                    BUDS_objective = c("avg_en", "worst_regret"),
+                    BUDS_objective = c("avg_en", "least_regret"),
                     verbose = FALSE, ...) {
   input_scale_null <- if (any(!vapply(list(S0, S0L, S0U), is.null, logical(1)))) {
     "survival"
@@ -463,7 +463,7 @@ tte_BUDS <- function(S0L = NULL, S0U = NULL, S1 = NULL, x0, rate, S0 = NULL,
   if (n.ub < 2) stop("n.ub must be >= 2.")
   if (length(BUDS_objective) == 0) stop("BUDS_objective must contain at least one objective.")
 
-  valid_obj <- c("avg_en", "worst_regret", "avg_regret", "worst_en", "min_n")
+  valid_obj <- c("avg_en", "least_regret", "avg_regret", "least_en", "min_n")
   BUDS_objective <- unique(tolower(BUDS_objective))
   BUDS_objective <- BUDS_objective[BUDS_objective %in% valid_obj]
   if (length(BUDS_objective) == 0) {
@@ -504,7 +504,7 @@ tte_BUDS <- function(S0L = NULL, S0U = NULL, S1 = NULL, x0, rate, S0 = NULL,
     )
     objective_map <- c(
       "avg_en" = "BUDS (Average EN)",
-      "worst_regret" = "BUDS (Worst Regret)"
+      "least_regret" = "BUDS (Least Regret)"
     )
     objective_keep <- BUDS_objective[BUDS_objective %in% names(objective_map)]
     if (length(objective_keep) > 0) {
@@ -623,7 +623,7 @@ tte_BUDS <- function(S0L = NULL, S0U = NULL, S1 = NULL, x0, rate, S0 = NULL,
   }, numeric(1))
   classic_rg_grid <- classic_en_grid - bench$EN_local
   classic_rg_grid[!bench_valid] <- NA_real_
-  classic_row$worst_regret <- max(classic_rg_grid, na.rm = TRUE)
+  classic_row$least_regret <- max(classic_rg_grid, na.rm = TRUE)
   classic_row$avg_regret <- mean(classic_rg_grid, na.rm = TRUE)
 
   selected_df <- rbind(

@@ -16,7 +16,7 @@
 #' @param p0U Upper bound of interval null.
 #' @param pgrid_points Number of grid points for interval null evaluation.
 #' @param robust_objective Robust design criterion. Publicly supported defaults
-#'   are \code{"worst_regret"} and \code{"avg_en"}. Additional internal
+#'   are \code{"least_regret"} and \code{"avg_en"}. Additional internal
 #'   criteria may still be available.
 #' @param robust_ref Reference design for inflation constraints: "Minimax" or "Optimal".
 #' @param robust_max_inflation Maximum allowed inflation over reference N.
@@ -37,7 +37,7 @@
 #'              p0 = 0.10, p1 = 0.25,
 #'              p0L = 0.05, p0U = 0.15,
 #'              n.ub = 150,
-#'              robust_objective = c("worst_regret", "avg_en"))
+#'              robust_objective = c("least_regret", "avg_en"))
 #' design
 #' summary(design, "Optimal")
 #'
@@ -47,7 +47,7 @@ binary_BUDS <- function(alpha, power, p0 = NULL, p1,
                       n.lb = NULL, n.ub = 150,
                       p0L = NULL, p0U = NULL,
                       pgrid_points = NULL,
-                      robust_objective = c("worst_regret", "avg_en"),
+                      robust_objective = c("least_regret", "avg_en"),
                       robust_ref = c("Minimax", "Optimal"),
                       robust_max_inflation = NULL,
                       robust_N_cap = NULL,
@@ -55,8 +55,8 @@ binary_BUDS <- function(alpha, power, p0 = NULL, p1,
                       robust_expand_step = 0.05,
                       robust_expand_max = 2.0) {
 
-  valid_objectives <- c("worst_regret", "worst_en", "avg_en", "avg_regret", "min_N")
-  default_display  <- c("worst_regret", "avg_en")
+  valid_objectives <- c("least_regret", "least_en", "avg_en", "avg_regret", "min_N")
+  default_display  <- c("least_regret", "avg_en")
 
   if (is.null(robust_objective) || identical(robust_objective, valid_objectives)) {
     robust_objective <- default_display
@@ -118,7 +118,7 @@ binary_BUDS <- function(alpha, power, p0 = NULL, p1,
     keep <- intersect(c("Optimal", "Minimax", "Balanced"), colnames(result$designs))
     result$designs <- result$designs[, keep, drop = FALSE]
     objective_map <- c(
-      "worst_regret" = "BUDS (Worst Regret)",
+      "least_regret" = "BUDS (Least Regret)",
       "avg_en" = "BUDS (Average EN)"
     )
     objective_keep <- robust_objective[robust_objective %in% names(objective_map)]

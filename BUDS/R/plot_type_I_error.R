@@ -194,7 +194,7 @@ plot_type_I_error <- function(design,
   
   present <- unique(reject_df$Design_all)
   binary_order <- c("Optimal", "Minimax", "Balanced")
-  BUDS_order <- c("BUDS (Worst Regret)", "BUDS (Average EN)", "BUDS (Worst EN)", "BUDS (Average Regret)", "BUDS (Min N)")
+  BUDS_order <- c("BUDS (Least Regret)", "BUDS (Average EN)", "BUDS (Least EN)", "BUDS (Average Regret)", "BUDS (Min N)")
   tte_order <- c("r-KJ", BUDS_order)
   if (any(present %in% tte_order)) {
     final_order <- c(tte_order[tte_order %in% present], setdiff(present, tte_order))
